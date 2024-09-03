@@ -150,8 +150,6 @@ window.onmessage = function (e) {
             parentDocument = contentIframe.contentDocument;
         }
 
-        // data.mediaContainer.size = data.mediaContainer.fileSize
-
         // Dispatch internal interaction for TYPO3/CMS/AdmiralCloudConnector/Browser
         var event, parameters = {
             detail: {
