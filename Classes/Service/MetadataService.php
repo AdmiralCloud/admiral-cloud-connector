@@ -178,7 +178,7 @@ class MetadataService
                         'alternative' => $metadata[ConfigurationUtility::getMetaAlternativeField()] ?? '',
                         'title' => $metadata[ConfigurationUtility::getMetaTitleField()] ?? '',
                         'description' => $metadata[ConfigurationUtility::getMetaDescriptionField()] ?? '',
-                        'copyright' => $metadata[ConfigurationUtility::getMetaCopyrightField()] ?? ''
+                        // 'copyright' => $metadata[ConfigurationUtility::getMetaCopyrightField()] ?? ''
                     ],
                     ['file' => $sysFileUid]
                 );
@@ -200,7 +200,7 @@ class MetadataService
                 'alternative' => $metadata[ConfigurationUtility::getMetaAlternativeField()] ?? '',
                 'title' => $metadata[ConfigurationUtility::getMetaTitleField()] ?? '',
                 'description' => $metadata[ConfigurationUtility::getMetaDescriptionField()] ?? '',
-                'copyright' => $metadata[ConfigurationUtility::getMetaCopyrightField()] ?? ''
+                // 'copyright' => $metadata[ConfigurationUtility::getMetaCopyrightField()] ?? ''
             ],
             ['file' => $sysFileUid]
         );
