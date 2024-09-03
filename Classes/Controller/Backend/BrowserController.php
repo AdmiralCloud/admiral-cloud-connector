@@ -283,7 +283,7 @@ class BrowserController extends AbstractBackendController
             $cropperData = $media['cropperData'];
 
             // First of all check that the file contain a valid hash in other case an exception would be thrown
-            $linkHash = $this->admiralCloudService->getLinkHashFromMediaContainer($mediaContainer, $cropperData['usePNG'] == "true");
+            $linkHash = $this->admiralCloudService->getLinkHashFromMediaContainer($mediaContainer, gettype($cropperData) === 'array' ? $cropperData['usePNG'] === 'true' : false);
 
             $file = $storage->getFile((string)$mediaContainer['id']);
             if ($file instanceof File) {

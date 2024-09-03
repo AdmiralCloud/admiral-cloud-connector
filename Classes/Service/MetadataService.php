@@ -123,6 +123,7 @@ class MetadataService
 
         if ($cache->has($cacheKey)) {
             $lastUpdatedMetaDataDate = $cache->get($cacheKey);
+            $lastUpdatedMetaDataDate = new \DateTime($lastUpdatedMetaDataDate);
         } else {
             $lastUpdatedMetaDataDate = new \DateTime(static::DEFAULT_LAST_CHANGED_DATE);
         }
