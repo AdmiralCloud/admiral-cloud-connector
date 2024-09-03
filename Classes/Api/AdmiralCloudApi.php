@@ -98,7 +98,7 @@ class AdmiralCloudApi
             "payload" => $settings['payload']
         ];
 
-        $signedValues = self::acSignatureSign($params,'v4');
+        $signedValues = self::acSignatureSign($params,'v5');
 
         $routeUrl = ConfigurationUtility::getApiUrl() . 'v5/' . $settings['route'];
 
