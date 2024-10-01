@@ -522,11 +522,11 @@ class AdmiralCloudService implements SingletonInterface
         if (!$isSvgMimeType && $file->getTxAdmiralCloudConnectorCrop()) {
             // With crop information
             $cropData = json_decode($file->getTxAdmiralCloudConnectorCrop()) or $cropData = json_decode('{"usePNG": "false"}');
-            $imageSuffix = '';
-            if (($GLOBALS['BE_USER']->user['image_webp'] ?? 0) === 1) {
-                $imageSuffix = '_webp';
-            } elseif (!empty($cropData->usePNG) && $cropData->usePNG === "true") {
+            $imageSuffix = ImageUtility::getDefaultImageOutputFormat();
+            if (!empty($cropData->usePNG) && $cropData->usePNG === "true") {
                 $imageSuffix = '_png';
+            } elseif ($imageSuffix !== '') {
+                $imageSuffix = '_' . $imageSuffix;
             }
 
             $link = ConfigurationUtility::getSmartcropUrl() .'v5/deliverEmbed/'

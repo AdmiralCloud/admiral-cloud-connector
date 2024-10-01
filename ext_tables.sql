@@ -19,8 +19,7 @@ CREATE TABLE sys_file_reference (
 CREATE TABLE be_users (
 	first_name varchar(50) DEFAULT '' NOT NULL,
 	last_name varchar(50) DEFAULT '' NOT NULL,
-	security_group varchar(50) DEFAULT '' NOT NULL,
-	image_webp tinyint(4) DEFAULT '0' NOT NULL
+	security_group varchar(50) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE tx_admiralcloudconnector_security_groups (

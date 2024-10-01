@@ -166,4 +166,17 @@ class ImageUtility
 
         return json_decode($crop) ?: null;
     }
+
+     /**
+     * @return string
+     */
+    public static function getDefaultImageOutputFormat(): string
+    {
+        $availableFormats = ['webp', 'jpeg', 'png'];
+        $envFormat = getenv('ADMIRALCLOUD_DEFAULT_IMAGE_OUTPUT_FORMAT');
+        if (in_array( $envFormat, $availableFormats, true)) {
+            return $envFormat;
+        }
+        return '';
+    }
 }

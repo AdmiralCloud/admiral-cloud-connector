@@ -41,22 +41,9 @@ $newBeUsersColumns = [
             'size' => 15,
             'eval' => 'trim'
         ]
-    ],
-    'image_webp' => [
-        'label' => 'LLL:EXT:admiral_cloud_connector/Resources/Private/Language/locallang_be.xlf:be_users.image_webp',
-        'config' => [
-            'type' => 'check',
-            'renderType' => 'checkboxToggle',
-              'items' => [
-                 [
-                    0 => '',
-                    1 => ''
-                 ]
-              ],
-        ]
     ]
 ];
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users', $newBeUsersColumns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users',
-    'first_name,last_name,security_group,image_webp', '', 'after:realName');
+    'first_name,last_name,security_group', '', 'after:realName');
