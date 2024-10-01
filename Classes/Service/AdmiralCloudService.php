@@ -522,9 +522,17 @@ class AdmiralCloudService implements SingletonInterface
         if (!$isSvgMimeType && $file->getTxAdmiralCloudConnectorCrop()) {
             // With crop information
             $cropData = json_decode($file->getTxAdmiralCloudConnectorCrop()) or $cropData = json_decode('{"usePNG": "false"}');
-            $link = ConfigurationUtility::getSmartcropUrl() .'v3/deliverEmbed/'
+            $imageSuffix = '';
+            if (($GLOBALS['BE_USER']->user['image_webp'] ?? 0) === 1) {
+                $imageSuffix = '_webp';
+            } elseif (!empty($cropData->usePNG) && $cropData->usePNG === "true") {
+                $imageSuffix = '_png';
+            }
+
+            $link = ConfigurationUtility::getSmartcropUrl() .'v5/deliverEmbed/'
                 . ($token ? $token['hash']:$file->getTxAdmiralCloudConnectorLinkhash())
-                . '/image'.(property_exists($cropData, 'usePNG') && $cropData->usePNG == "true" ? '_png' : '').'/cropperjsfocus/'
+                . '/image' . $imageSuffix
+                . '/cropperjsfocus/'
                 . $dimensions->width
                 . '/'
                 . $dimensions->height
@@ -532,24 +540,28 @@ class AdmiralCloudService implements SingletonInterface
                 . $file->getTxAdmiralCloudConnectorCropUrlPath()
                 . '?poc=true' . (!ConfigurationUtility::isProduction()?'&env=dev':'')
                 .  ($token ? '&' . $auth:'') ;
-        } else {
-            if ($isSvgMimeType) {
-                $link = ConfigurationUtility::getImageUrl() . ($token ? 'v5/deliverFile/':'v3/deliverEmbed/')
-                    . ($token ? $token['hash']:$file->getTxAdmiralCloudConnectorLinkhash())
-                    . ($token ?'/': '/image/')
-                    .  ($token ? '?' . $auth:'') ;
-            } else {
-                // Without crop information
-                $link = ConfigurationUtility::getSmartcropUrl() . 'v3/deliverEmbed/'
-                    . ($token ? $token['hash']:$file->getTxAdmiralCloudConnectorLinkhash())
-                    . '/image/autocrop/'
-                    . $dimensions->width
-                    . '/'
-                    . $dimensions->height
-                    . '/1?poc=true'
-                    .  ($token ? '&' . $auth:'') ;
-            }
+
+            return $link;
+        } 
+
+        if ($isSvgMimeType) {
+            $link = ConfigurationUtility::getImageUrl() . ($token ? 'v5/deliverFile/':'v3/deliverEmbed/')
+                . ($token ? $token['hash']:$file->getTxAdmiralCloudConnectorLinkhash())
+                . ($token ?'/': '/image/')
+                .  ($token ? '?' . $auth:'') ;
+
+            return $link;
         }
+        
+        // Without crop information
+        $link = ConfigurationUtility::getSmartcropUrl() . 'v3/deliverEmbed/'
+            . ($token ? $token['hash']:$file->getTxAdmiralCloudConnectorLinkhash())
+            . '/image/autocrop/'
+            . $dimensions->width
+            . '/'
+            . $dimensions->height
+            . '/1?poc=true'
+            .  ($token ? '&' . $auth:'') ;
 
         return $link;
     }
