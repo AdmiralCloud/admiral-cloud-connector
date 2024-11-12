@@ -108,7 +108,7 @@ function executeReadyCallbacks() {
 
 window.onmessage = function (e) {
     if(e.data) {
-        var data = JSON.parse(e.data);
+        var data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
     }
 
     // Receive Auth Device-Identifier
